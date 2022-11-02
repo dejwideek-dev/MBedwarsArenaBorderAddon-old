@@ -1,4 +1,4 @@
-# MBedwarsArenaBorderAddon
+# Arena Border Addon for MBedwars
 
 Simple addon for [MBedwars](https://mbedwars.com/product/marcelys-bedwars). You can add border in arena!
 
