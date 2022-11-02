@@ -30,22 +30,27 @@ public class RoundStartEvent implements Listener {
 
         for(String s : disabledArenas) {
             if(!arena.getName().equals(s)) {
-                if(plugin.config.getBoolean("Arena-Types." +
-                        regenerationType.name()
-                                .toUpperCase() + ".Enabled").equals(true)) {
+                if(regenerationType.equals(RegenerationType.WORLD)) {
                     World world = arena.getGameWorld();
 
-                    world.getWorldBorder().setCenter(
-                            plugin.config.getDouble("Arena-Types." +
-                                    regenerationType.name()
-                                            .toUpperCase() + ".Center-Location.X"),
-                            plugin.config.getDouble("Arena-Types." +
-                                    regenerationType.name()
-                                            .toUpperCase() + ".Center-Location.Z"));
-                    world.getWorldBorder().setSize(
-                            plugin.config.getDouble("Arena-Types." +
-                                    regenerationType.name()
-                                            .toUpperCase() + ".Size"));
+                    if(plugin.config.getSection("Border.Arenas."
+                            + arena.getName()) != null) {
+                        world.getWorldBorder().setCenter(
+                                plugin.config.getDouble("Border.Arenas."
+                                        + arena.getName() + ".Center-Location.X"),
+                                plugin.config.getDouble("Border.Arenas."
+                                        + arena.getName() + ".Center-Location.Z"));
+                        world.getWorldBorder().setSize(
+                                plugin.config.getDouble("Border.Arenas."
+                                        + arena.getName() + ".Size"));
+                    }
+                    else {
+                        world.getWorldBorder().setCenter(
+                                plugin.config.getDouble("Border.Default.Center-Location.X"),
+                                plugin.config.getDouble("Border.Default.Center-Location.Z"));
+                        world.getWorldBorder().setSize(
+                                plugin.config.getDouble("Border.Default.Size"));
+                    }
                 }
                 else return;
             }
