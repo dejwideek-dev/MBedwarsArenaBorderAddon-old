@@ -14,26 +14,24 @@ Messages:
 
   Reloaded: "&eSuccessfully reloaded configuration file!"
 
-#Border configuration for arena types
-Arena-Types:
-  WORLD:
-    Enabled: true
+#Border configuration
+Border:
+  Default:
     Center-Location:
       X: 0.0
       Z: 0.0
     Size: 300.0
-  REGION:
-    Enabled: true
-    Center-Location:
-      X: 0.0
-      Z: 0.0
-    Size: 300.0
-  VOTING:
-    Enabled: true
-    Center-Location:
-      X: 0.0
-      Z: 0.0
-    Size: 100.0
+
+  #You can add sections for arenas, by default
+  #It's disabled but u can remove # and [] and it should work.
+  #Just replace arena1 to your arena name and copy if u need more
+  #configurations
+  Arenas: []
+#    arena1:
+#      Center-Location:
+#        X: 0.0
+#        Z: 0.0
+#      Size: 250.0
 
 #Disabled arenas from border
 Disabled-Arenas:
