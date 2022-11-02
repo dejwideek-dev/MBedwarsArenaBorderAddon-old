@@ -44,6 +44,16 @@ public class ArenaBorderAddon extends JavaPlugin {
                 ex.printStackTrace();
             }
 
+            new UpdateChecker(this, 106051).getVersion(version -> {
+                if (this.getDescription().getVersion().equals(version)) {
+                    this.getLogger().info("You are using latest version.");
+                }
+                else {
+                    this.getLogger().info("There is a new update available. (v" + version + ")");
+                    this.getLogger().info("https://spigotmc.org/resources/106051/updates");
+                }
+            });
+
             registerEvents();
             registerCommands();
         }
