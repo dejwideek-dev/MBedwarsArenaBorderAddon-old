@@ -1,0 +1,41 @@
+#Arena Border Addon for MBedwars by dejwideek
+
+#Don't change this!
+config-version: 1
+
+#Permissions
+Permissions:
+  Reload: "bw.arenaborder.reload"
+
+#Messages
+Messages:
+  #Available placeholder: %permission%
+  No-Permission: "&cYou must have permission &4%permission% &cto do this!"
+
+  Reloaded: "&eSuccessfully reloaded configuration file!"
+
+#Border configuration for arena types
+Arena-Types:
+  WORLD:
+    Enabled: true
+    Center-Location:
+      X: 0.0
+      Z: 0.0
+    Size: 300.0
+  REGION:
+    Enabled: true
+    Center-Location:
+      X: 0.0
+      Z: 0.0
+    Size: 300.0
+  VOTING:
+    Enabled: true
+    Center-Location:
+      X: 0.0
+      Z: 0.0
+    Size: 100.0
+
+#Disabled arenas from border
+Disabled-Arenas:
+  - disabledArena1
+  - disabledArena2
