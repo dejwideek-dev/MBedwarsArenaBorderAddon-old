@@ -1,5 +1,6 @@
 package pl.dejwideek.mbwarenaborder;
 
+import co.aikar.commands.BukkitCommandManager;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
@@ -7,9 +8,10 @@ import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.dejwideek.mbwarenaborder.commands.ReloadCommand;
-import pl.dejwideek.mbwarenaborder.events.RoundStartEvent;
+import pl.dejwideek.mbwarenaborder.commands.ReloadCmd;
+import pl.dejwideek.mbwarenaborder.events.GameStartEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,16 +46,7 @@ public class ArenaBorderAddon extends JavaPlugin {
                 ex.printStackTrace();
             }
 
-            new UpdateChecker(this, 106051).getVersion(version -> {
-                if (this.getDescription().getVersion().equals(version)) {
-                    this.getLogger().info("You are using latest version.");
-                }
-                else {
-                    this.getLogger().info("There is a new update available. (v" + version + ")");
-                    this.getLogger().info("https://spigotmc.org/resources/106051/updates");
-                }
-            });
-
+            updateCheck();
             registerEvents();
             registerCommands();
         }
@@ -63,11 +56,27 @@ public class ArenaBorderAddon extends JavaPlugin {
         }
     }
 
+    public void updateCheck() {
+        new UpdateChecker(this, 106051).getVersion(version -> {
+            if (this.getDescription().getVersion().equals(version)) {
+                this.getLogger().info("You are using latest version.");
+            }
+            else {
+                this.getLogger().info("There is a new update available. (v" + version + ")");
+                this.getLogger().info("https://spigotmc.org/resources/106051/updates");
+            }
+        });
+    }
+
     public void registerEvents() {
-        Bukkit.getPluginManager().registerEvents(new RoundStartEvent(this), this);
+        PluginManager manager = Bukkit.getPluginManager();
+
+        manager.registerEvents(new GameStartEvent(this), this);
     }
 
     public void registerCommands() {
-        this.getCommand("arenaborderreload").setExecutor(new ReloadCommand(this));
+        BukkitCommandManager manager = new BukkitCommandManager(this);
+
+        manager.registerCommand(new ReloadCmd(this));
     }
 }
